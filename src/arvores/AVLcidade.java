@@ -1,5 +1,8 @@
 package arvores;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cidade.Cidade;
 
 public class AVLcidade {
@@ -167,6 +170,7 @@ public class AVLcidade {
 			System.out.println("dado: " + p.dado + "    \t FB = " + (p.hDir - p.hEsq));
 		}
 	}
+
 	public void mostra(ARVORE p) {
 		if (p != null) {
 			mostra(p.esq);
@@ -174,6 +178,7 @@ public class AVLcidade {
 			mostra(p.dir);
 		}
 	}
+
 	public ARVORE atualizaAlturaBalanceamento(ARVORE p) {
 		/*
 		 * atualiza informa��o da altura de cada n� depois da remo��o percorre a �rvore
@@ -200,7 +205,6 @@ public class AVLcidade {
 		return p;
 	}
 
-
 	public int contaNos(ARVORE p, int cont) {
 		if (p != null) {
 			cont++;
@@ -211,4 +215,6 @@ public class AVLcidade {
 		}
 		return cont;
 	}
+
+
 }

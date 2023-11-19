@@ -1,5 +1,8 @@
 package aplicacao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import arvores.AVLcidade;
 import cidade.Cidade;
 
@@ -21,7 +24,6 @@ public class Vacinacao {
 		Cidade[] cidade = new Cidade[cidades.length];
 		for (int i = 0; i < cidades.length; i++) {
 			cidade[i] = new Cidade(cidades[i], vacinacao[i], nCasos[i]);
-	
 		}
 		for (Cidade cidad : cidade) {
 			// System.out.println("Cidade: " + cidad.getNomeCity() + ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina()
@@ -30,14 +32,31 @@ public class Vacinacao {
 			avlCidade.atualizaAlturas(avlCidade.root);
 			avlCidade.mostraFB(avlCidade.root);
 		}
-
-		
-
-
 		/* 
 		 * 2) Usando um metodo da classe AVL gerar vetor de cidades com vacinacao menor do 80% e pelo menos 1 caso
 		 * 	  Depois, ordenar vetor usando quicksort.
-		 * 3) Gerar ABB percorrendo AVL, usando um metodo da classe AVL. ABB � organizada pela cobertura vacinal.
+		 */
+
+		Cidade[] cidadeAbaixoDe80 = new Cidade[cidade.length];
+
+		for (int i = 0; i < cidadeAbaixoDe80.length; i++) {
+			cidadeAbaixoDe80[i] = new Cidade("", 0.0, 0);
+		}
+
+		for (int j = 0; j < cidadeAbaixoDe80.length; j++) {
+			if (cidade[j].getPorcentagemVacina() < 80 && cidade[j].getNumCasos() >= 1) {
+				cidadeAbaixoDe80[j] = new Cidade(cidade[j].getNomeCity(),
+						cidade[j].getPorcentagemVacina(), cidade[j].getNumCasos());
+			}
+		}
+		for (Cidade cidad : cidadeAbaixoDe80) {
+			if (cidad.getNumCasos() != 0) {
+			System.out.println("Cidade: " + cidad.getNomeCity() + ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina()
+					+ ", Numero de Casos: " + cidad.getNumCasos());
+			}
+		}
+		
+		/* 3) Gerar ABB percorrendo AVL, usando um metodo da classe AVL. ABB � organizada pela cobertura vacinal.
 		 * 
 		 */
 			
