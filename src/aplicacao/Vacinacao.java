@@ -1,6 +1,7 @@
 package aplicacao;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import arvores.AVLcidade;
@@ -55,6 +56,19 @@ public class Vacinacao {
 					+ ", Numero de Casos: " + cidad.getNumCasos());
 			}
 		}
+		Cidade[] cidadesValidas = Arrays.stream(cidadeAbaixoDe80)
+            .filter(c -> c.getNumCasos() != 0)
+            .toArray(Cidade[]::new);
+
+    // Ordenar vetor usando Quicksort
+    quicksort(cidadesValidas, 0, cidadesValidas.length - 1);
+
+	System.out.println();
+    // Exibir cidades ordenadas
+    for (Cidade cidad : cidadesValidas) {
+        System.out.println("Cidade: " + cidad.getNomeCity() +
+                ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina() +
+                ", Numero de Casos: " + cidad.getNumCasos());}
 		
 		/* 3) Gerar ABB percorrendo AVL, usando um metodo da classe AVL. ABB � organizada pela cobertura vacinal.
 		 * 
@@ -62,7 +76,7 @@ public class Vacinacao {
 			
 		}
 		
-	public static void quicksort(int x[],int li,int ls)
+	public static void quicksort(Cidade x[],int li,int ls)
 	{
 		int j;
 		if (li<ls){
@@ -71,30 +85,28 @@ public class Vacinacao {
 			quicksort(x, j+1,ls);
 		}
 	}
-	public static int particiona (int x[], int li, int ls)
-	{
-		int abaixo,acima;
-		int pivo,temp;
-		pivo=x[ls];
-		acima=ls;
-		abaixo=li;
-		while(abaixo<acima)
-		{
-			while(x[abaixo]<pivo && abaixo<ls) {
+	public static int particiona(Cidade x[], int li, int ls) {
+		double pivo = x[ls].getPorcentagemVacina();
+		int acima = ls;
+		int abaixo = li;
+		while (abaixo < acima) {
+			while (x[abaixo].getPorcentagemVacina() < pivo && abaixo < ls) {
 				abaixo++;
 			}
-			while (x[acima]>=pivo && acima > abaixo) {
+			while (x[acima].getPorcentagemVacina() >= pivo && acima > abaixo) {
 				acima--;
 			}
-			if (abaixo<acima){
-				temp=x[abaixo];
-				x[abaixo]=x[acima];
-				x[acima]=temp;
+			if (abaixo < acima) {
+				// Trocar elementos
+				Cidade temp = x[abaixo];
+				x[abaixo] = x[acima];
+				x[acima] = temp;
 			}
 		}
-		x[ls]=x[acima];
-		x[acima]=pivo;
+		// Trocar o pivô para a posição correta
+		Cidade temp = x[ls];
+		x[ls] = x[acima];
+		x[acima] = temp;
 		return acima;
 	}
-
 }
