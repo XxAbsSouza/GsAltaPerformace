@@ -94,20 +94,23 @@ public class Vacinacao {
 						cidade[j].getNumCasos());
 			}
 		}
-
+		
+		System.out.println("ABB");
+		int count = 1;
 		for (int i = 0; i < cidadeAbaixoDe80ABB.length; i++) {
 			if (cidadeAbaixoDe80ABB[i].getNumCasos() != 0) {
 				abbCidade.root = abbCidade.inserir(abbCidade.root, cidadeAbaixoDe80ABB[i]);
-
+				System.out.println("Comparações para o item #" + count + ": " + abbCidade.comparisons);
+				count++;
 			}
 		}
-
-		System.out.println("ABB");
 
 		abbCidade.listaEmOrdem(abbCidade.root);
 
 		}
 		
+
+	private static int comparisonCount = 0;
 	public static void quicksort(Cidade x[],int li,int ls)
 	{
 		int j;
@@ -124,9 +127,11 @@ public class Vacinacao {
 		while (abaixo < acima) {
 			while (x[abaixo].getPorcentagemVacina() < pivo && abaixo < ls) {
 				abaixo++;
+				comparisonCount++;
 			}
 			while (x[acima].getPorcentagemVacina() >= pivo && acima > abaixo) {
 				acima--;
+				comparisonCount++;
 			}
 			if (abaixo < acima) {
 				// Trocar elementos
