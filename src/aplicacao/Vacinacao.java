@@ -94,11 +94,16 @@ public class Vacinacao {
 						cidade[j].getNumCasos());
 			}
 		}
+
 		for (int i = 0; i < cidadeAbaixoDe80ABB.length; i++) {
-			abbCidade.inserir(abbCidade.root, cidadeAbaixoDe80ABB[i]);
+			if (cidadeAbaixoDe80ABB[i].getNumCasos() != 0) {
+				abbCidade.root = abbCidade.inserir(abbCidade.root, cidadeAbaixoDe80ABB[i]);
+
+			}
 		}
 
 		System.out.println("ABB");
+
 		abbCidade.listaEmOrdem(abbCidade.root);
 
 		}

@@ -20,6 +20,7 @@ public class ABBcidade {
     public int comparisons = 0;
 
     public ARVORE inserir(ARVORE p, Cidade cidade) {
+
         if (p == null) {
             return new ARVORE(cidade);
         } else {
@@ -79,6 +80,7 @@ public class ABBcidade {
 
 
     public void listaEmOrdem(ARVORE p) {
+
         if (p != null) {
             listaEmOrdem(p.esq);
             System.out.println("City: " + p.dado.getNomeCity() +
@@ -86,5 +88,7 @@ public class ABBcidade {
                     ", Number of Cases: " + p.dado.getNumCasos());
             listaEmOrdem(p.dir);
         }
+
     }
+
 }
