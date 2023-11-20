@@ -1,6 +1,7 @@
 package cidade;
 
 public class Cidade {
+    private int quicksortComparisons;
     private String nomeCity;
     private double porcentagemVacina;
     private int numCasos;
@@ -24,10 +25,17 @@ public class Cidade {
     public int getNumCasos() {
         return numCasos;
     }
+
     public void setNumCasos(int numCasos) {
         this.numCasos = numCasos;
     }
-
     
+    public int getQuicksortComparisons() {
+        return quicksortComparisons;
+    }
+
+    public void incrementQuicksortComparisons() {
+        quicksortComparisons++;
+    }
 
 }
