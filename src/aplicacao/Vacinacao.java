@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import arvores.ABBcidade;
 import arvores.AVLcidade;
 import cidade.Cidade;
 
@@ -12,6 +13,8 @@ public class Vacinacao {
 	public static void main(String[] args) {
 		
 		AVLcidade avlCidade = new AVLcidade();
+		AVLcidade avlCidadeAbaixo80 = new AVLcidade();
+		ABBcidade abbCidade = new ABBcidade();
 		/*
 		 * Os vetores criados s�o para que realizar testes solicitados 
 		 */
@@ -54,6 +57,9 @@ public class Vacinacao {
 			if (cidad.getNumCasos() != 0) {
 			System.out.println("Cidade: " + cidad.getNomeCity() + ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina()
 					+ ", Numero de Casos: " + cidad.getNumCasos());
+			avlCidadeAbaixo80.root = avlCidadeAbaixo80.inserirCidade(avlCidadeAbaixo80.root, cidad);
+			avlCidadeAbaixo80.atualizaAlturas(avlCidadeAbaixo80.root);
+			avlCidadeAbaixo80.mostraFB(avlCidadeAbaixo80.root);
 			}
 		}
 		Cidade[] cidadesValidas = Arrays.stream(cidadeAbaixoDe80)
@@ -64,16 +70,41 @@ public class Vacinacao {
     quicksort(cidadesValidas, 0, cidadesValidas.length - 1);
 
 	System.out.println();
+	System.out.println("CIDADES EM ALERTA:");
     // Exibir cidades ordenadas
-    for (Cidade cidad : cidadesValidas) {
+	for (Cidade cidad : cidadesValidas) {
         System.out.println("Cidade: " + cidad.getNomeCity() +
                 ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina() +
-                ", Numero de Casos: " + cidad.getNumCasos());}
+				", Numero de Casos: " + cidad.getNumCasos());
+
+			}
 		
 		/* 3) Gerar ABB percorrendo AVL, usando um metodo da classe AVL. ABB � organizada pela cobertura vacinal.
 		 * 
 		 */
-			
+		Cidade[] cidadeAbaixoDe80ABB = new Cidade[cidade.length];
+
+		for (int i = 0; i < cidadeAbaixoDe80ABB.length; i++) {
+			cidadeAbaixoDe80ABB[i] = new Cidade("", 0.0, 0);
+		}
+
+		for (int j = 0; j < cidadeAbaixoDe80ABB.length; j++) {
+			if (cidade[j].getPorcentagemVacina() < 80 && cidade[j].getNumCasos() >= 1) {
+				cidadeAbaixoDe80ABB[j] = new Cidade(cidade[j].getNomeCity(), cidade[j].getPorcentagemVacina(),
+						cidade[j].getNumCasos());
+			}
+		}
+		System.out.println("ABB");
+
+		for (Cidade cidad : cidadeAbaixoDe80ABB) {
+			if (cidad.getNumCasos() != 0) {
+			System.out.println("Cidade: " + cidad.getNomeCity() + ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina()
+					+ ", Numero de Casos: " + cidad.getNumCasos());
+				}
+		}
+		
+		abbCidade.listaEmOrdem(abbCidade.root);
+
 		}
 		
 	public static void quicksort(Cidade x[],int li,int ls)
