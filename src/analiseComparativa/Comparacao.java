@@ -4,14 +4,15 @@ import java.util.Arrays;
 import java.util.Random;
 
 import arvores.ABBcidade;
-import cidade.Cidade;
 import arvores.AVLcidade;
+import cidade.Cidade;
 
 public class Comparacao {
     ABBcidade abb = new ABBcidade();
-AVLcidade avl = new AVLcidade();
+    AVLcidade avl = new AVLcidade();
     String cidades[] = { "Analandia", "Araraquara", "Dourado", "Ibitinga", "Matao", "S�o Carlos", "Tabatinga" };
-
+ static int totalComp = 0;
+   static int totalTroca = 0;
     Cidade[] cidade = new Cidade[cidades.length];
 
     public Comparacao() {
@@ -34,41 +35,12 @@ AVLcidade avl = new AVLcidade();
 
     }
 
-    
-
     public static int gerarNumeroAleatorio(int min, int max) {
         Random random = new Random();
         return Math.round(random.nextInt((max - min) + 1) + min);
     }
 
-  
-
-for (int i = 0; i < cidade.length; i++) {
-            if (cidade[i].getNumCasos() != 0) {
-                System.out.println(
-                        "Cidade: " + cidade[i].getNomeCity() + ", Porcentagem de Vacinação: " + cidade[i].getPorcentagemVacina()
-                                + ", Numero de Casos: " + cidade[i].getNumCasos());
-                avl.root = avl.inserirCidade(avl.root, cidade[i]);
-                avl.atualizaAlturas(avl.root);
-                avl.mostraFB(avl.root);
-                // comparaçõesQuick[i] = comparisonCount;
-            }
-        }
-        Cidade[] cidadesValidas = Arrays.stream(cidade)
-            .filter(c -> c.getNumCasos() != 0)
-            .toArray(Cidade[]::new);
-
-    // Ordenar vetor usando Quicksort
-     quicksort(cidadesValidas, 0, cidadesValidas.length - 1);
-
-    for (int i = 0; i < cidade.length; i++) {
-        if (cidade[i].getNumCasos() != 0) {
-            System.out.println("#Cidade " + cidade[i].getNomeCity());
-            System.out.println("Número de Comparação em QuickSort: " + cidade[i].getQuicksortComparisons());
-
-        }
-    }
-  public static void quicksort(Cidade x[], int li, int ls) {
+    public static void quicksort(Cidade x[], int li, int ls) {
         int j;
         if (li < ls) {
             j = particiona(x, li, ls);
@@ -84,9 +56,12 @@ for (int i = 0; i < cidade.length; i++) {
         while (abaixo < acima) {
             while (x[abaixo].getPorcentagemVacina() < pivo && abaixo < ls) {
                 abaixo++;
+                totalComp++;
             }
             while (x[acima].getPorcentagemVacina() >= pivo && acima > abaixo) {
                 acima--;
+                                totalComp++;
+
             }
             if (abaixo < acima) {
                 // Trocar elementos
@@ -95,19 +70,43 @@ for (int i = 0; i < cidade.length; i++) {
                 x[acima] = temp;
                 x[abaixo].incrementQuicksortComparisons();
                 x[acima].incrementQuicksortComparisons();
+                totalTroca++;
             }
         }
-    // Trocar o pivô para a posição correta
-    Cidade temp = x[ls];
-    x[ls] = x[acima];
-    x[acima] = temp;
-    x[ls].incrementQuicksortComparisons();
-    x[acima].incrementQuicksortComparisons();
-    return acima;
-}
+        // Trocar o pivô para a posição correta
+        Cidade temp = x[ls];
+        x[ls] = x[acima];
+        x[acima] = temp;
+        x[ls].incrementQuicksortComparisons();
+        x[acima].incrementQuicksortComparisons();
+        totalTroca++;
+        return acima;
+    }
+
     public static void main(String[] args) {
         // You can create an instance of Aplicacao and perform any further operations
         // here.
         Comparacao comparacao = new Comparacao();
+        Cidade[] cidadeCopy = Arrays.copyOf(comparacao.cidade, comparacao.cidade.length);
+
+        // Filter out cities with zero cases
+        Cidade[] cidadesValidas = Arrays.stream(cidadeCopy)
+                .filter(c -> c.getNumCasos() != 0)
+                .toArray(Cidade[]::new);
+
+        // Perform quicksort on the cidadesValidas array
+        quicksort(cidadesValidas, 0, cidadesValidas.length - 1);
+        
+   
+        // Display the sorted array
+        System.out.println("\nCIDADES EM ALERTA (Ordenadas por Porcentagem de Vacinação):");
+        for (Cidade cidad : cidadesValidas) {
+            System.out.println("Cidade: " + cidad.getNomeCity() +
+                    ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina() +
+                    ", Numero de Casos: " + cidad.getNumCasos());
+                    
+        }
+        System.out.println(totalComp+" e "+totalTroca);
     }
+
 }
