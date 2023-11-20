@@ -5,9 +5,11 @@ public class Comparacao {
 	public static void main(String[] args) {
 		/*
 		 * Tarefa 4
-		 * classe de aplicação onde são gerados muitos valores aleatórios 
-		 * que são tanto armazenados em um vetor como na ABBint.
+		 * classe de aplicaï¿½ï¿½o onde sï¿½o gerados muitos valores aleatï¿½rios 
+		 * que sï¿½o tanto armazenados em um vetor como na ABBint.
 		 */
+
+		
 
 	}
 

@@ -17,15 +17,20 @@ public class ABBcidade {
 
     public ARVORE root = null;
 
+    public int comparisons = 0;
+
     public ARVORE inserir(ARVORE p, Cidade cidade) {
         if (p == null) {
             return new ARVORE(cidade);
-        } else if (cidade.getPorcentagemVacina() < p.dado.getPorcentagemVacina()) {
-            p.esq = inserir(p.esq, cidade);
         } else {
-            p.dir = inserir(p.dir, cidade);
+            comparisons++; // Increment comparison counter
+            if (cidade.getPorcentagemVacina() < p.dado.getPorcentagemVacina()) {
+                p.esq = inserir(p.esq, cidade);
+            } else {
+                p.dir = inserir(p.dir, cidade);
+            }
+            return p;
         }
-        return p;
     }
 
     public boolean consulta(ARVORE p, String nomeCidade) {
@@ -71,6 +76,7 @@ public class ABBcidade {
         }
         return p;
     }
+
 
     public void listaEmOrdem(ARVORE p) {
         if (p != null) {

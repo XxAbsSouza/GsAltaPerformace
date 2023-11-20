@@ -94,15 +94,11 @@ public class Vacinacao {
 						cidade[j].getNumCasos());
 			}
 		}
-		System.out.println("ABB");
-
-		for (Cidade cidad : cidadeAbaixoDe80ABB) {
-			if (cidad.getNumCasos() != 0) {
-			System.out.println("Cidade: " + cidad.getNomeCity() + ", Porcentagem de Vacinação: " + cidad.getPorcentagemVacina()
-					+ ", Numero de Casos: " + cidad.getNumCasos());
-				}
+		for (int i = 0; i < cidadeAbaixoDe80ABB.length; i++) {
+			abbCidade.inserir(abbCidade.root, cidadeAbaixoDe80ABB[i]);
 		}
-		
+
+		System.out.println("ABB");
 		abbCidade.listaEmOrdem(abbCidade.root);
 
 		}
